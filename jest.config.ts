@@ -1,5 +1,8 @@
 export default {
   testEnvironment: "jsdom",
+  testEnvironmentOptions: {
+    customExportConditions: [""],
+  },
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
