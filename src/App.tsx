@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom";
-import {Lets}  from "./assets/svg"
+import { useState } from "react";
+import Navigation from "./components/Navigations/navigation"
+import Footer from "./components/Footer/footer";
 
 export default function App() {
+
   return (
     <>
-      <div>nav 바바바바바바바ㅏㅈ</div>
+      <Navigation></Navigation>
       <Outlet />
-      <div>footer</div>
+      <Footer></Footer>
     </>
   );
 }
