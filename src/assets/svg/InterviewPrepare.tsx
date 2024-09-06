@@ -1,12 +1,6 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react';
 const SvgInterviewPrepare = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 12 12"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12" {...props}>
     <g clipPath="url(#interview-prepare_svg__a)">
       <path
         stroke="#FF6578"

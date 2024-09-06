@@ -1,12 +1,6 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react';
 const SvgBlog = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 39 36"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 39 36" {...props}>
     <mask
       id="Blog_svg__a"
       width={23}
@@ -15,7 +9,7 @@ const SvgBlog = (props: SVGProps<SVGSVGElement>) => (
       y={8}
       maskUnits="userSpaceOnUse"
       style={{
-        maskType: "alpha",
+        maskType: 'alpha',
       }}
     >
       <path

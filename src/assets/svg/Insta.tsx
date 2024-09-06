@@ -1,12 +1,6 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react';
 const SvgInsta = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 38 36"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 38 36" {...props}>
     <mask
       id="Insta_svg__a"
       width={22}
@@ -15,7 +9,7 @@ const SvgInsta = (props: SVGProps<SVGSVGElement>) => (
       y={8}
       maskUnits="userSpaceOnUse"
       style={{
-        maskType: "alpha",
+        maskType: 'alpha',
       }}
     >
       <path

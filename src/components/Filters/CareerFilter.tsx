@@ -1,4 +1,4 @@
-import { useState, Dispatch } from 'react';
+import { Dispatch } from 'react';
 
 const items = [
   { label: { step: '', description: 'ALL' }, career_type: 'ALL' },
