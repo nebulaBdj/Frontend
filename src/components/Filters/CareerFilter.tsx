@@ -33,7 +33,8 @@ const CareerFilter: React.FC<CareerFilterProps> = ({ activeItem, setActiveItem }
 
   return (
     <div className="flex justify-center">
-      <div className="relative w-full max-w-[350px] desktop:max-w-[612px] h-[50px] desktop:h-[68px] mt-[72px] desktop:mt-[90px] mb-[8px] gap-[8px] border-t border-t-[0.8px] border-transparent inline-flex justify-center text-sm bg-white desktop:px-[8px] desktop:py-[8px] px-[8px] py-[8px] ">
+      <div className="relative w-full max-w-[350px] md:max-w-[612px] h-[50px] desktop:h-[68px] mt-[72px] desktop:mt-[90px] mb-[8px] gap-[8px] border-t border-t-[0.8px] border-transparent 
+      inline-flex justify-center text-sm bg-white desktop:px-[8px] desktop:py-[8px] px-[8px] py-[8px] ">
         <section className="flex w-full h-full rounded-3xl overflow-hidden border justify-center items-center desktop:gap-[4px]">
           {items.map((item) => (
             <button

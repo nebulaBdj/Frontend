@@ -8,7 +8,7 @@ export default function TabLecturerIntro({ lecturerData }: Props) {
   if (lecturerData.templateType === 'image') {
     // templateType이 'image'인 경우 이미지만 렌더링
     return (
-      <section className="flex justify-center items-center bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+      <section className="flex justify-center items-center p-8 mx-auto">
         <img
           src={lecturerData.profileImage}
           alt={lecturerData.name}

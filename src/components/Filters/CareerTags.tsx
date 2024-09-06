@@ -4,16 +4,15 @@ import {
   CareerExplore,
   InterviewPrepare,
 } from "../../assets/svg";
-// 백엔드 변수랑 이름 맞추기!!
 
 // 상태에 따른 스타일을 반환하는 함수
 const getTagStyles = (status: string) => {
   switch (status) {
-    case "career-explore":
+    case "CAREER_EXPLORE":
       return "bg-[#e3faeb] text-[#00B347]";
-    case "document-prepare":
+    case "DOCUMENT_PREPARE":
       return "bg-[#FEF8D9] text-[#E59700]";
-    case "interview-prepare":
+    case "INTERVIEW_PREPARE":
       return "bg-[#FFEBEB] text-[#FF6578]";
     default:
       return "";
@@ -23,11 +22,11 @@ const getTagStyles = (status: string) => {
 // 상태에 따른 텍스트를 반환하는 함수
 const getStatusText = (status: string) => {
   switch (status) {
-    case "career-explore":
+    case "CAREER_EXPLORE":
       return "탐색";
-    case "document-prepare":
+    case "DOCUMENT_PREPARE":
       return "서류";
-    case "interview-prepare":
+    case "INTERVIEW_PREPARE":
       return "면접";
     default:
       return "";
@@ -37,11 +36,11 @@ const getStatusText = (status: string) => {
 // 상태에 따른 SVG 아이콘을 반환하는 함수
 const getStatusIcon = (status: string) => {
   switch (status) {
-    case "career-explore":
+    case "CAREER_EXPLORE":
       return <CareerExplore />;
-    case "document-prepare":
+    case "DOCUMENT_PREPARE":
       return <DocumentPrepare />;
-    case "interview-prepare":
+    case "INTERVIEW_PREPARE":
       return <InterviewPrepare />;
     default:
       return null;
@@ -49,7 +48,7 @@ const getStatusIcon = (status: string) => {
 };
 
 interface CareerTagProps {
-  status: "career-explore" | "document-prepare" | "interview-prepare";
+  status: string;
 }
 
 const CareerTags: React.FC<CareerTagProps> = ({ status }) => {
@@ -66,7 +65,6 @@ const CareerTags: React.FC<CareerTagProps> = ({ status }) => {
           {statusIcon}
         </div>
       )}{" "}
-      {/* 아이콘 렌더링 */}
       <div className="flex items-center justify-center w-[21px] h-[16px] text-xs font-medium">
         {statusText}
       </div>

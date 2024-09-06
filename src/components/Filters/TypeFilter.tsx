@@ -20,9 +20,9 @@ const TypeFilter: React.FC<Props> = ({ activeItems, setActiveItems }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex items-center w-full">
       <div
-        className="flex gap-[8px] mt-[8px] mb-[20px] h-[32px] justify-center items-center text-xs
+        className="flex gap-[8px] ml-2 mt-[8px] mb-[20px] h-[32px] justify-center items-center text-xs
       p-[8px] pt-[8px] pb-[20px] 
         desktop:p-[20px] desktop:pt-[20px] desktop:pb-[40px]"
       >

@@ -32,15 +32,15 @@ export const DUMMY_DATA: DETAILDATA = {
         '렛츠 커리어는 세 가지 코어 벨류를 중심으로\n취업 준비생과 주니어의 힘이 되어 줍니다.',
       hookingImageList: [
         {
-          imageUrl: '믿음',
+          imageUrl: '/img/Hooking_img1.png',
           order: 1,
         },
         {
-          imageUrl: '동기',
+          imageUrl: '/img/Hooking_img2.png',
           order: 2,
         },
         {
-          imageUrl: '지지',
+          imageUrl: '/img/Hooking_img3.png',
           order: 3,
         },
       ],
@@ -51,7 +51,7 @@ export const DUMMY_DATA: DETAILDATA = {
       title: '이런 분들께 적극 추천해요',
       hookingImageList: [
         {
-          imageUrl: '이런 분',
+          imageUrl: '/img/Hooking_img_who_moblie.png',
           order: 1,
         },
       ],
@@ -62,7 +62,7 @@ export const DUMMY_DATA: DETAILDATA = {
       title: '온라인 대시보드를 통해\n 편하게 진행해요',
       hookingImageList: [
         {
-          imageUrl: '대시보드 이미지',
+          imageUrl: '/img/mobile_dash.png',
           order: 1,
         },
       ],
@@ -97,7 +97,7 @@ export const DUMMY_DATA: DETAILDATA = {
       ],
       descriptionImages: [
         {
-          imageUrl: '프로그램 소개 예시 이미지',
+          imageUrl: '/img/intro_img.png',
           order: 1,
         },
       ],
@@ -110,7 +110,7 @@ export const DUMMY_DATA: DETAILDATA = {
     career: '소개소개소개소개',
     intro:
       '텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트',
-    profileImage: '연사 이미지',
+    profileImage: '/img/lecturer_img.jpg',
   },
   curriculum: [
     {

@@ -3,17 +3,7 @@ import { useNavigate } from 'react-router';
 import RecruitTags, { RecruitState } from '../Filters/RecruitTags';
 import CareerTags from '../Filters/CareerTags';
 import NotifyButton from '../Buttons/NotifyButton';
-
-interface Program {
-  id: number;
-  title: string;
-  intro: string;
-  dday: number;
-  program_start_date: string;
-  program_finish_date: string;
-  imageUrl: string;
-  status: RecruitState;
-}
+import { Program } from '../../types/Program';
 
 interface ProgramBoxProps {
   program: Program;
@@ -35,7 +25,7 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
   return (
     <div
       key={program.id}
-      className="relative flex flex-col justify-center rounded-lg border border-gray-300 mb-[20px] mr-[20px] w-[165px] h-[306px] p-[8px] sm:w-[275px] sm:h-[321px] sm:p-[10px] font-pretendard"
+      className="relative flex flex-col justify-center rounded-lg border border-gray-300 mb-[20px] mx-[10px] w-[165px] h-[306px] p-[8px] sm:w-[275px] sm:h-[321px] sm:p-[10px] font-pretendard"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => {
@@ -54,7 +44,7 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
       </div>
       <span className="flex inline-flex">
         <RecruitTags status={program.status} />
-        <CareerTags status={'career-explore'} />
+        <CareerTags status={program.career_type} />
       </span>
       <h2 className="text-[14px] font-semibold mb-2">{program.title}</h2>
       <p className="text-[12px] font-normal text-gray-600">{program.intro}</p>

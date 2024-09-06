@@ -92,7 +92,7 @@ export default function TabHookingImages({ hookingData }: Props) {
                   <img
                     src={hookingImage.imageUrl}
                     alt={`${hookingImage.imageUrl}`}
-                    className="w-24 h-24 object-cover rounded-lg mb-2"
+                    className="object-cover rounded-lg mb-2"
                   />
                 </div>
               ))}
