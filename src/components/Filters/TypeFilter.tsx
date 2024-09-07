@@ -5,10 +5,10 @@ interface Props {
   setActiveItems: Dispatch<SetStateAction<string[]>>;
 }
 
-const items = [
-  { label: '챌린지', program_type: 'CHALLENGE' },
-  { label: 'LIVE 클래스', program_type: 'LIVECLASS' },
-];
+// const items = [
+//   { label: '챌린지', program_type: 'CHALLENGE' },
+//   { label: 'LIVE 클래스', program_type: 'LIVECLASS' },
+// ];
 
 const TypeFilter: React.FC<Props> = ({ activeItems, setActiveItems }) => {
   const handleClick = (programType: string) => {
