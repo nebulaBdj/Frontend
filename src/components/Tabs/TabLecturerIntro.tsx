@@ -41,7 +41,11 @@ export default function TabLecturerIntro({ lecturerData }: Props) {
       </div>
 
       {/* Career */}
-      <p className="text-sm text-Neutral-grayscale-30 mb-6">{lecturerData.career}</p>
+      <div className="w-[200px] mx-auto text-center">
+        <p className="text-start text-sm text-Neutral-grayscale-30 mb-6 mx-auto">
+          {lecturerData.career}
+        </p>
+      </div>
 
       {/* Introduction */}
       <p className="text-sm text-Neutral-grayscale-30">{lecturerData.intro}</p>

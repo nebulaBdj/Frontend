@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { RecommendedProgram } from '../../types/ProgramDetailType';
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 
 export default function TabSuggest({ recommendedPrograms }: Props) {
   const [activeTab, setActiveTab] = useState('탐색'); // 현재 선택된 탭 상태
+  const navigate = useNavigate();
 
   // 각 탭별 프로그램 필터링
   const filteredPrograms = recommendedPrograms.filter((program) => program.tag === activeTab);
@@ -19,7 +21,10 @@ export default function TabSuggest({ recommendedPrograms }: Props) {
         {['탐색', '서류', '면접'].map((tag, index) => (
           <div
             key={tag}
-            onClick={() => setActiveTab(tag)}
+            onClick={() => {
+              setActiveTab(tag);
+              navigate('/program/1');
+            }}
             className={`text-center cursor-pointer ${
               activeTab === tag
                 ? 'text-Neutral-grayscale-10 border-b-2 border-Primary-100'

@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { DETAILDATA } from '../../types/ProgramDetailType';
-import { DUMMY_DATA } from '../../assets/dummy/DetailPageDummy';
+import { DUMMY_DATA, DATA_FOR_FIXESBTN } from '../../assets/dummy/DetailPageDummy';
+import FixedSummitButton from '../../components/Buttons/FixedSummitButton';
 
 export default function DetailPage() {
   const { programId } = useParams<{ programId: string }>();
@@ -40,6 +41,7 @@ export default function DetailPage() {
         recommendedPrograms={DUMMY_DATA.recommendedPrograms}
         faq={DUMMY_DATA.faq}
       />
+      <FixedSummitButton program={DATA_FOR_FIXESBTN} />
     </main>
   );
 }

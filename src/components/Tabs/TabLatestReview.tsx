@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Review } from '../../types/ProgramDetailType';
-import { Star } from '../../assets/svg';
+import { EmptyStar, Star } from '../../assets/svg';
 
 interface Props {
   reviews: Review[];
@@ -10,7 +10,7 @@ interface Props {
 export default function TabLatestReview({ reviews }: Props) {
   const { programId } = useParams<{ programId: string }>();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showButtons, setShowButtons] = useState(window.innerWidth >= 768);
+  const [showButtons, setShowButtons] = useState(window.innerWidth >= 1000);
   const [touchStartX, setTouchStartX] = useState(0); // 터치 시작 위치
   const [touchEndX, setTouchEndX] = useState(0); // 터치 종료 위치
 
@@ -89,9 +89,21 @@ export default function TabLatestReview({ reviews }: Props) {
             <div key={index} className="w-full flex-shrink-0 font-pretendard">
               <div className="bg-white rounded-lg p-6">
                 {/* 별점 */}
-                <div className="flex mb-4">
-                  {Array.from({ length: review.grade }, (_, i) => (
-                    <Star key={i} className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px] mb-[16px]" />
+
+                <div className="flex items-center gap-[4px]">
+                  {/* 별점 개수만큼 Star 렌더링 */}
+                  {[...Array(review.grade)].map((_, index) => (
+                    <Star
+                      key={`star-${index}`}
+                      className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px] mb-[16px]"
+                    />
+                  ))}
+                  {/* 빈 별 채우기 */}
+                  {[...Array(5 - review.grade)].map((_, index) => (
+                    <EmptyStar
+                      key={`empty-star-${index}`}
+                      className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px] mb-[16px]"
+                    />
                   ))}
                 </div>
                 {/* 프로그램 이름 */}
