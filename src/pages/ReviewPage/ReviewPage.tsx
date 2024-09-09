@@ -3,7 +3,7 @@ import ReviewBox from '../../components/Review/ReviewBox';
 import { BackBtn } from '../../assets/svg';
 import SortReview from '../../components/Review/SortReview';
 // import LiveThumbnail from "../../assets/images/LiveThumbnail.png"
-import { dummyData_review } from '../../assets/dummy/ReviewPageDummy';
+// import { dummyData_review } from '../../assets/dummy/ReviewPageDummy';/
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

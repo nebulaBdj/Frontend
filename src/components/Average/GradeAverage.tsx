@@ -1,5 +1,5 @@
-import SvgStar from '../../assets/svg/Star';
-import SvgEmptyStar from '../../assets/svg/EmptyStar';
+import SvgResultStar from '../../assets/svg/ResultStar';
+import SvgResultStarEmpty from '../../assets/svg/ResultStarEmpty';
 
 interface Props {
   gradeAverage: number;
@@ -8,8 +8,8 @@ interface Props {
 
 export default function GradeAverage({ gradeAverage, gradeCount }: Props) {
   return (
-    <div className="flex flex-col items-center justify-center w-1/2 lg:w-auto mt-4">
-      <p className="text-Neutral-grayscale-0 text-3xl font-medium">
+    <div className="flex flex-col items-center justify-center mt-10">
+      <p className="text-Neutral-grayscale-0 text-3xl lg:text-5xl font-medium">
         {gradeAverage}
         <span className="text-xl">점</span>
       </p>
@@ -19,9 +19,9 @@ export default function GradeAverage({ gradeAverage, gradeCount }: Props) {
             .fill(0)
             .map((_, i) =>
               i < Math.floor(gradeAverage) ? (
-                <SvgStar key={i} width={24} height={24} className="mr-2" />
+                <SvgResultStar key={i} className="mr-2 w-[40px] h-[40px] lg:w-[58px] lg:h-[58px]" />
               ) : (
-                <SvgEmptyStar key={i} width={24} height={24} />
+                <SvgResultStarEmpty key={i} className="w-[40px] h-[40px] lg:w-[58px] lg:h-[58px]" />
               ),
             )}
         </span>

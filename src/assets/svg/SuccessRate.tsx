@@ -14,23 +14,23 @@ export default function SuccessRate({ passedRate }: SuccessRateProps) {
   const offset = circumference - (normalizedRate / 100) * circumference;
 
   return (
-    <div className="relative w-40 h-20 flex justify-center items-center">
+    <div className="relative w-40 lg:w-[200px] h-20 lg:h-[120px] flex justify-center items-center">
       {/* SVG 반원 차트 */}
       <svg width="100%" height="100%" viewBox="0 0 100 50">
         {/* 배경 회색 반원 */}
-        <path d="M 10,50 A 40,40 0 0,1 90,50" stroke="#E7E7E7" strokeWidth="15" fill="none" />
+        <path d="M 10,50 A 40,40 0 0,1 90,50" stroke="#E7E7E7" strokeWidth="13" fill="none" />
         {/* 파란색 진행률 반원 */}
         <path
           d="M 10,50 A 40,40 0 0,1 90,50"
           stroke="#4D55F5"
-          strokeWidth="15"
+          strokeWidth="13"
           fill="none"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
         />
       </svg>
       {/* 중앙에 퍼센트 텍스트 표시 */}
-      <div className="absolute top-16 text-2xl font-semibold text-center text-Neutral-grayscale-0">
+      <div className="absolute top-16 text-2xl lg:text-4xl font-semibold text-center text-Neutral-grayscale-0">
         {normalizedRate}
         <span className="text-lg font-medium">%</span>
       </div>
