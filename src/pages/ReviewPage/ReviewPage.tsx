@@ -4,30 +4,37 @@ import { BackBtn } from '../../assets/svg';
 import SortReview from '../../components/Review/SortReview';
 // import LiveThumbnail from "../../assets/images/LiveThumbnail.png"
 import { dummyData_review } from '../../assets/dummy/ReviewPageDummy';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export interface Review {
   id: number;
-  number_of_star: number;
-  program_name: string;
-  review_date: string;
-  user_name: string;
-  dream_work_field: string;
+  programName: string;
+  grade: number;
+  date: string;
+  userName: string;
+  dreamWorkField: string;
   year: number;
   major: string;
   status: string;
-  contents: string;
+  title: string;
+  content: string;
 }
 
 const ReviewPage: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [sortedReviews, setSortedReviews] = useState<Review[]>([]);
-
+  const { programId } = useParams<{ programId: string }>();
   const [isMoblie, setIsMoblie] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReviews = async () => {
-      setReviews(dummyData_review);
-      setSortedReviews(dummyData_review);
+      const res = await axios.get(`https://letmec.p-e.kr/program/${programId}/review`);
+      const fetchedReviews = res.data.result.reviews;
+      setReviews(fetchedReviews);
+      setSortedReviews(fetchedReviews);
     };
 
     fetchReviews();
@@ -40,14 +47,17 @@ const ReviewPage: React.FC = () => {
     handleRize();
 
     return () => window.removeEventListener('resize', handleRize);
-  }, []);
+  }, [programId]);
 
   const handleSortChange = (sortedData: Review[]) => {
-    setSortedReviews(sortedData);
+    if (JSON.stringify(sortedData) !== JSON.stringify(sortedReviews)) {
+      setSortedReviews(sortedData);
+    }
   };
 
   const handleBackClick = () => {
-    window.history.back();
+    // window.history.back();
+    navigate(`/program/${programId}`);
   };
 
   return (

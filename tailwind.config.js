@@ -76,7 +76,7 @@ module.exports = {
         'White-Opacity-0': '#D8D8D8',
         'Positive-Green': '#1BC47D',
         'Positive-Green-light': '#E3FAEB',
-        'Error': '#F64E39',
+        Error: '#F64E39',
         'Error-light': '#FFEBEB',
         'Point-Normal': '#DAFF7C',
       },
@@ -88,5 +88,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 };

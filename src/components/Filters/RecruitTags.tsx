@@ -1,8 +1,8 @@
 import React from 'react';
 
 export enum RecruitState {
-  RECRUITING = 'recruiting',
-  ENDED = 'ended',
+  RECRUITING = 'RECRUITING',
+  ENDED = 'ENDED',
 }
 
 // 상태에 따른 스타일을 반환하는 함수
@@ -30,7 +30,7 @@ const getStatusText = (status: RecruitState) => {
 };
 
 interface RecruitTagProps {
-  status: RecruitState;  // RecruitState enum을 사용하도록 업데이트
+  status: RecruitState; // RecruitState enum을 사용하도록 업데이트
 }
 
 const RecruitTags: React.FC<RecruitTagProps> = ({ status }) => {
@@ -42,13 +42,14 @@ const RecruitTags: React.FC<RecruitTagProps> = ({ status }) => {
   const width = isRecruiting ? 'w-[54px]' : 'w-[41px]'; // 모집 중일 때 더 큰 너비
 
   return (
-    <div className={`flex justify-center items-center px-[10px] py-[4px] mr-[6px] rounded-lg gap-1 ${width} ${tagStyles}`}>
+    <div
+      className={`flex justify-center items-center px-[10px] py-[4px] mr-[6px] rounded-lg gap-1 ${width} ${tagStyles}`}
+    >
       <div className={`flex items-center justify-center text-xs font-medium whitespace-nowrap`}>
         {statusText}
       </div>
     </div>
   );
-
 };
 
 // 백엔드에서 상태를 받아오는 컴포넌트

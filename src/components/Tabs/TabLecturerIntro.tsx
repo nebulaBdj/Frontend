@@ -37,7 +37,7 @@ export default function TabLecturerIntro({ lecturerData }: Props) {
       {/* Name and Nickname */}
       <div className="flex justify-center items-baseline text-center text-Neutral-grayscale-10 mb-4">
         <p className="text-xl font-semibold mr-2">{lecturerData.name}</p>
-        <p className="text-xs font-semibold">{lecturerData.nickName}</p>
+        <p className="text-xs font-semibold">{lecturerData.nickname}</p>
       </div>
 
       {/* Career */}
@@ -48,7 +48,7 @@ export default function TabLecturerIntro({ lecturerData }: Props) {
       </div>
 
       {/* Introduction */}
-      <p className="text-sm text-Neutral-grayscale-30">{lecturerData.intro}</p>
+      <p className="text-sm text-Neutral-grayscale-30">{lecturerData.introduce}</p>
     </section>
   );
 }

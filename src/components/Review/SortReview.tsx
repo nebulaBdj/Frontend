@@ -14,13 +14,13 @@ const SortReview: React.FC<SortReviewProps> = ({ reviews, onSortChange }) => {
       let sorted = [...reviews];
       switch (sortType) {
         case 'latest':
-          sorted = sorted.sort((a, b) => new Date(b.review_date).getTime() - new Date(a.review_date).getTime());
+          sorted = sorted.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
           break;
         case 'highRating':
-          sorted = sorted.sort((a, b) => b.number_of_star - a.number_of_star);
+          sorted = sorted.sort((a, b) => b.grade - a.grade);
           break;
         case 'lowRating':
-          sorted = sorted.sort((a, b) => a.number_of_star - b.number_of_star);
+          sorted = sorted.sort((a, b) => a.grade - b.grade);
           break;
         default:
           break;
@@ -36,10 +36,17 @@ const SortReview: React.FC<SortReviewProps> = ({ reviews, onSortChange }) => {
       <select
         onChange={(e) => setSortType(e.target.value as 'latest' | 'highRating' | 'lowRating')}
         className=" focus:outline-none bg-Neutral-grayscale-90 rounded-lg p-2 mt-[71px] text-[16px]
-        w-[110px] px-[8px] py-[8px] mr-[15px] sm:mr-[40px] text-Neutral-grayscale-30">
-        <option value="latest" className="text-Neutral-grayscale-30 bg-Neutral-grayscale-80">최신순</option>
-        <option value="highRating" className="text-Neutral-grayscale-30 bg-Neutral-grayscale-80">별점 높은순</option>
-        <option value="lowRating" className="text-Neutral-grayscale-30 bg-Neutral-grayscale-80">별점 낮은순</option>
+        w-[110px] px-[8px] py-[8px] mr-[15px] sm:mr-[40px] text-Neutral-grayscale-30"
+      >
+        <option value="latest" className="text-Neutral-grayscale-30 bg-Neutral-grayscale-80">
+          최신순
+        </option>
+        <option value="highRating" className="text-Neutral-grayscale-30 bg-Neutral-grayscale-80">
+          별점 높은순
+        </option>
+        <option value="lowRating" className="text-Neutral-grayscale-30 bg-Neutral-grayscale-80">
+          별점 낮은순
+        </option>
       </select>
     </div>
   );

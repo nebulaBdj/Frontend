@@ -5,17 +5,17 @@ interface Props {
 }
 
 export default function TabDescription({ introData }: Props) {
-  if (introData.templateType === 'image' && introData.imageTypeImageUrl) {
-    return (
-      <section className="flex justify-center items-center bg-white p-8 rounded-lg shadow-md">
-        <img
-          src={introData.imageTypeImageUrl}
-          alt="Description Image"
-          className="max-w-full h-auto rounded-lg"
-        />
-      </section>
-    );
-  }
+  // if (introData.templateType === 'image' && introData.imageTypeImageUrl) {
+  //   return (
+  //     <section className="flex justify-center items-center bg-white p-8 rounded-lg shadow-md">
+  //       <img
+  //         src={introData.imageTypeImageUrl}
+  //         alt="Description Image"
+  //         className="max-w-full h-auto rounded-lg"
+  //       />
+  //     </section>
+  //   );
+  // }
 
   return (
     <article>

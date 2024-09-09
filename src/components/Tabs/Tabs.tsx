@@ -5,7 +5,6 @@ import {
   FAQ,
   Hooking,
   Lecturer,
-  RecommendedProgram,
   Review,
 } from '../../types/ProgramDetailType';
 import TabHookingImages from './TabHookingImages';
@@ -22,7 +21,6 @@ interface Props {
   lecturerIntro: Lecturer;
   curriculums: Curriculum[];
   latestReviews: Review[];
-  recommendedPrograms: RecommendedProgram[];
   faq: FAQ[];
 }
 
@@ -32,7 +30,6 @@ export default function Tabs({
   lecturerIntro,
   curriculums,
   latestReviews,
-  recommendedPrograms,
   faq,
 }: Props) {
   const [activeTab, setActiveTab] = useState('programIntro');
@@ -107,12 +104,6 @@ export default function Tabs({
 
   return (
     <section className="lg:w-[1200px] mx-auto">
-      {/* Hooking 이미지는 독립적으로 위에 배치 */}
-      {hookingArr &&
-        hookingArr.map((hookinData, i) => {
-          return <TabHookingImages key={i} hookingData={hookinData} />;
-        })}
-
       {/* 탭 메뉴 */}
       <div
         ref={tabRef}
@@ -202,7 +193,7 @@ export default function Tabs({
         <h3 className="font-pretendard font-medium text-lg text-Primary-100 text-center">
           추천 강좌
         </h3>
-        <TabSuggest recommendedPrograms={recommendedPrograms} />
+        <TabSuggest />
       </section>
 
       <section ref={faqRef} id="faq" className="bg-Neutral-grayscale-100 w-full py-20">

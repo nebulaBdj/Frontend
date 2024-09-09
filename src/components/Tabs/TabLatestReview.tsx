@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Review } from '../../types/ProgramDetailType';
 import { EmptyStar, Star } from '../../assets/svg';
+import JobStatusIndicator from '../Review/JobStatusIndicator';
 
 interface Props {
   reviews: Review[];
@@ -9,134 +10,86 @@ interface Props {
 
 export default function TabLatestReview({ reviews }: Props) {
   const { programId } = useParams<{ programId: string }>();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showButtons, setShowButtons] = useState(window.innerWidth >= 1000);
-  const [touchStartX, setTouchStartX] = useState(0); // 터치 시작 위치
-  const [touchEndX, setTouchEndX] = useState(0); // 터치 종료 위치
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  // 화면 너비 변화 감지
   useEffect(() => {
     const handleResize = () => {
-      setShowButtons(window.innerWidth >= 768);
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // 이전 슬라이드로 이동
-  const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? reviews.length - 1 : prevIndex - 1));
-  };
-
-  // 다음 슬라이드로 이동
-  const handleNextClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === reviews.length - 1 ? 0 : prevIndex + 1));
-  };
-
-  // 터치 시작 시 위치 저장
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.targetTouches[0].clientX);
-  };
-
-  // 터치 이동 시 위치 저장
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEndX(e.targetTouches[0].clientX);
-  };
-
-  // 터치 종료 시 슬라이드 이동 결정
-  const handleTouchEnd = () => {
-    if (touchStartX - touchEndX > 50) {
-      handleNextClick(); // 오른쪽으로 스와이프
+  const getStatus = (status: string) => {
+    if (status === 'EMPLOYED') {
+      return 'hired';
+    } else if (status === 'UNEMPLOYED') {
+      return 'rejected';
+    } else {
+      return 'undecided';
     }
-
-    if (touchStartX - touchEndX < -50) {
-      handlePrevClick(); // 왼쪽으로 스와이프
-    }
-
-    // 터치 종료 후 초기화
-    setTouchStartX(0);
-    setTouchEndX(0);
   };
 
   return (
-    <div
-      className="relative w-full mx-auto"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* 리뷰 항목들 */}
-      <div className="overflow-hidden w-[290px] mx-auto">
-        <p className="font-pretendard text-center font-bold text-2xl mt-2 mb-[72px]">
-          실제 수강생들의 솔직한 후기
-        </p>
+    <div className="w-full mx-auto">
+      {/* 제목 */}
+      <p className="font-pretendard text-center font-bold text-2xl mt-2 mb-[50px]">
+        실제 수강생들의 솔직한 후기
+      </p>
 
-        <div className="flex justify-end">
+      {/* 리뷰 항목들 */}
+      <div className="overflow-hidden w-full">
+        {/* 더보기 버튼 */}
+        <div className="flex justify-end mb-2">
           <a
             href={`/program/${programId}/review`}
-            className="font-pretendard text-base text-Neutral-grayscale-30"
+            className="font-pretendard text-base font-extrabold text-Neutral-grayscale-30 mr-[50px]"
           >
             더보기
           </a>
         </div>
 
+        {/* 모바일: 가로 스크롤, 데스크탑: 그리드 */}
         <div
-          className="flex transition-transform duration-500 mt-2 border-[1px] border-Black_Opacity-12"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          className={`flex ${isMobile ? 'overflow-x-auto snap-x ml-[50px]' : 'flex-row flex-wrap justify-center'} gap-[16px] scrollbar-hide`}
+          style={isMobile ? { scrollSnapType: 'x mandatory', scrollPadding: '0 50px' } : {}}
         >
           {reviews.map((review, index) => (
-            <div key={index} className="w-full flex-shrink-0 font-pretendard">
-              <div className="bg-white rounded-lg p-6">
-                {/* 별점 */}
-
-                <div className="flex items-center gap-[4px]">
-                  {/* 별점 개수만큼 Star 렌더링 */}
-                  {[...Array(review.grade)].map((_, index) => (
-                    <Star
-                      key={`star-${index}`}
-                      className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px] mb-[16px]"
-                    />
-                  ))}
-                  {/* 빈 별 채우기 */}
-                  {[...Array(5 - review.grade)].map((_, index) => (
-                    <EmptyStar
-                      key={`empty-star-${index}`}
-                      className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px] mb-[16px]"
-                    />
-                  ))}
-                </div>
-                {/* 프로그램 이름 */}
-                <p className="text-sm font-semibold mb-1">이력서&자기소개서 완성 1기</p>
-                {/* 작성 시간 */}
-                <p className="text-xs text-gray-500 mb-2">{review.createAt.toLocaleDateString()}</p>
-                {/* 사용자 이름 */}
-                <p className="text-xs text-gray-500 mb-2">{review.userName}</p>
-                {/* 리뷰 내용 */}
-                <p className="text-sm text-gray-600">{review.content}</p>
+            <div
+              key={index}
+              className={`bg-white rounded-lg p-6 ${isMobile ? 'snap-start w-[290px] flex-shrink-0' : 'w-[360px] sm:w-[30%] flex-shrink-0'}`}
+            >
+              {/* 별점 */}
+              <div className="flex items-center gap-[4px] mb-[16px]">
+                {/* 별점 개수만큼 Star 렌더링 */}
+                {[...Array(review.grade)].map((_, i) => (
+                  <Star key={`star-${i}`} className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px]" />
+                ))}
+                {/* 빈 별 채우기 */}
+                {[...Array(5 - review.grade)].map((_, i) => (
+                  <EmptyStar
+                    key={`empty-star-${i}`}
+                    className="w-[28px] h-[28px] sm:w-[33px] sm:h-[33px]"
+                  />
+                ))}
               </div>
+
+              <div className="text-[16px] sm:text-[18px] font-semibold mb-2 mt-16px gap-[4px]">
+                {review.programName}
+              </div>
+              <div className="text-[14px] ">{review.date}</div>
+              <div className="text-[14px] ">희망업종: {review.dreamWorkField}</div>
+              <div className="text-[14px] ">{review.major}</div>
+              <div className="flex gap-1.5 justify-start">
+                <div className="text-[16px] font-medium ">{review.userName}</div>
+                <JobStatusIndicator status={getStatus(review.status)} />
+              </div>
+              <div className="text-[16px] mt-[16px]">{review.content}</div>
             </div>
           ))}
         </div>
       </div>
-
-      {/* 이전/다음 버튼 - 화면 너비가 768px 이상일 때만 표시 */}
-      {showButtons && (
-        <>
-          <button
-            onClick={handlePrevClick}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 bg-gray-300 rounded-full"
-          >
-            &lt;
-          </button>
-          <button
-            onClick={handleNextClick}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 bg-gray-300 rounded-full"
-          >
-            &gt;
-          </button>
-        </>
-      )}
     </div>
   );
 }
