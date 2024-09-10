@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Curriculum } from '../../types/ProgramDetailType';
 
 interface Props {

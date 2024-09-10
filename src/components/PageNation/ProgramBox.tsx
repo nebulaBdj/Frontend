@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import RecruitTags, { RecruitState } from '../Filters/RecruitTags';
 import CareerTags from '../Filters/CareerTags';
@@ -16,6 +16,10 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
   const handleMouseLeave = () => setIsHovered(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(isHovered);
+  }, [isHovered]);
 
   const handleNotificationClick = () => {
     alert('출시 알림 신청 완료!');
@@ -59,8 +63,12 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
           )}
           <CareerTags status={program.tag} />
         </span>
-        <h2 className="text-[14px] sm:text-[16px] font-semibold mt-[8px] sm:mt-[12px]">{program.title}</h2>
-        <p className="text-[12px] sm:text-[14px] font-normal text-Neutral-grayscale-30">{program.intro}</p>
+        <h2 className="text-[14px] sm:text-[16px] font-semibold mt-[8px] sm:mt-[12px]">
+          {program.title}
+        </h2>
+        <p className="text-[12px] sm:text-[14px] font-normal text-Neutral-grayscale-30">
+          {program.intro}
+        </p>
 
         <div className="flex-grow"></div>
 
@@ -71,14 +79,12 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
           </span>
         </p>
       </>
-      {
-        program.recruitStatus === RecruitState.ENDED && (
-          <div className="absolute inset-x-0 bottom-10 sm:bottom-16 flex justify-center z-20">
-            <NotifyButton onClick={handleNotificationClick} />
-          </div>
-        )
-      }
-    </div >
+      {program.recruitStatus === RecruitState.ENDED && (
+        <div className="absolute inset-x-0 bottom-10 sm:bottom-16 flex justify-center z-20">
+          <NotifyButton onClick={handleNotificationClick} />
+        </div>
+      )}
+    </div>
   );
 };
 
