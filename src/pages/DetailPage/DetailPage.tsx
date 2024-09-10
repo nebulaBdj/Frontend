@@ -13,6 +13,18 @@ import GradeAverage from '../../components/Average/GradeAverage';
 export default function DetailPage() {
   const { programId } = useParams<{ programId: string }>();
   const [detailData, setDetailData] = useState<DETAILDATA>();
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // 768px 이하일 때 모바일 이미지 사용
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // 초기 로드 시에도 확인
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -31,7 +43,7 @@ export default function DetailPage() {
 
   return (
     <main>
-      <DetailThumbnail />
+      <DetailThumbnail isMobile={isMobile} />
 
       {detailData && (
         <section className="w-[390px] flex justify-center items-center text-center mt-5 mb-8 mx-auto flex-col font-pretendard lg:w-[84%]">
@@ -58,6 +70,7 @@ export default function DetailPage() {
           curriculums={detailData.curriculum}
           latestReviews={detailData.latestReviews}
           faq={detailData.faq}
+          isMobile={isMobile}
         />
       )}
       {/* <FixedSummitButton program={} /> */}

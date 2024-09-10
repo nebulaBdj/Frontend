@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { RecommendedProgram } from '../../types/ProgramDetailType';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { formatDate } from '../../utils/formatDate';
 
 export default function TabSuggest() {
   const [activeTab, setActiveTab] = useState('CAREER_EXPLORE'); // 현재 선택된 탭 상태
@@ -25,7 +26,7 @@ export default function TabSuggest() {
   }, [activeTab]);
 
   return (
-    <section className="mx-auto px-4 max-w-xl font-pretendard">
+    <section className="mx-auto px-4 lg:w-[905px] font-pretendard">
       <p className="text-center font-bold text-2xl mt-1 mb-[72px]">이런 강좌는 어떠세요?</p>
 
       <div className="flex justify-around space-x-8 mb-[72px] w-[350px] mx-auto">
@@ -42,12 +43,12 @@ export default function TabSuggest() {
             }`}
           >
             <p
-              className={`font-medium text-xs ${activeTab === tag ? 'text-Neutral-grayscale-10' : 'text-Neutral-grayscale-70'}`}
+              className={`font-medium text-xs lg:text-sm ${activeTab === tag ? 'text-Neutral-grayscale-10' : 'text-Neutral-grayscale-70'}`}
             >
               STEP{index + 1}
             </p>
             <p
-              className={`font-semibold text-sm ${activeTab === tag ? 'text-Neutral-grayscale-10' : 'text-Neutral-grayscale-70'}`}
+              className={`font-semibold text-sm lg:text-lg ${activeTab === tag ? 'text-Neutral-grayscale-10' : 'text-Neutral-grayscale-70'}`}
             >
               {tag === 'CAREER_EXPLORE'
                 ? '커리어 탐색'
@@ -60,7 +61,7 @@ export default function TabSuggest() {
       </div>
 
       {/* 프로그램 목록 */}
-      <div className="grid gap-4">
+      <div className="grid gap-4 lg:grid-cols-3">
         {filteredPrograms.slice(0, 3).map((program) => (
           <a
             key={program.recommendedProgramId}
@@ -72,11 +73,13 @@ export default function TabSuggest() {
               alt={program.title}
               className="w-[255px] h-[164px] object-cover rounded mb-4"
             />
-            <h3 className="font-bold text-base mb-1">{program.title}</h3>
-            <p className="text-sm text-gray-500 mb-2">{program.intro}</p>
-            <p className="text-xs text-gray-400">
-              모집 마감: {program.recruitEndDate} / 진행일정: {program.programStartDate} ~{' '}
-              {program.programEndDate}
+            <h3 className="font-bold text-base mb-1 text-Neutral-grayscale-0">{program.title}</h3>
+            <p className="text-sm text-Neutral-grayscale-30 mb-2">{program.intro}</p>
+            <p className="text-xs text-Neutral-grayscale-0">
+              진행일정:
+              <span className="text-[#4138A3]">
+                {formatDate(program.programStartDate)} ~ {formatDate(program.programEndDate)}
+              </span>
             </p>
           </a>
         ))}

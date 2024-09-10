@@ -21,21 +21,21 @@ export default function TabFAQ({ faqList }: Props) {
   };
 
   return (
-    <section className="max-w-2xl mx-auto font-pretendard">
+    <section className="mx-auto font-pretendard">
       <h2 className="text-center font-bold text-2xl text-Neutral-grayscale-0 mt-2 mb-[72px]">
         무엇이든 물어보세요
       </h2>
 
       <div>
         {faqList.map((faq, index) => (
-          <div key={faq.order} className="w-[350px] mb-4 mx-auto">
+          <div key={faq.order} className="w-[350px] lg:w-[930px] mb-4 mx-auto">
             <button
               onClick={() => toggleFAQ(index)}
               className="w-full flex justify-between items-center px-[10px] py-5 bg-Neutral-grayscale-100 rounded-2xl focus:outline-none border-[1px] border-Black_Opacity-12 mb-2"
             >
               <div className="flex items-center">
-                <span className="text-Primary-100 font-semibold text-[26px] mr-2">Q</span>
-                <p className="w-[260px] text-Neutral-grayscale-30 font-semibold text-base text-left ">
+                <span className="text-Primary-100 font-semibold text-[26px] mr-2 lg:ml-5">Q</span>
+                <p className="w-[260px] lg:w-[835px] text-Neutral-grayscale-30 font-semibold text-base text-left ">
                   {faq.question}
                 </p>
               </div>

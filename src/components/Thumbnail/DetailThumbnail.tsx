@@ -1,19 +1,8 @@
-import { useEffect, useState } from 'react';
+interface Props {
+  isMobile: boolean;
+}
 
-export default function DetailThumbnail() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // 768px 이하일 때 모바일 이미지 사용
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // 초기 로드 시에도 확인
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
+export default function DetailThumbnail({ isMobile }: Props) {
   return (
     <section className=" bg-slate-600 w-[390px] h-[410px] mx-auto mt-[60px] lg:w-[1200px] lg:h-[614px]">
       <img

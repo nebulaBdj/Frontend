@@ -2,20 +2,11 @@ import { Description } from '../../types/ProgramDetailType';
 
 interface Props {
   introData: Description;
+  isMobile: boolean;
 }
 
-export default function TabDescription({ introData }: Props) {
-  // if (introData.templateType === 'image' && introData.imageTypeImageUrl) {
-  //   return (
-  //     <section className="flex justify-center items-center bg-white p-8 rounded-lg shadow-md">
-  //       <img
-  //         src={introData.imageTypeImageUrl}
-  //         alt="Description Image"
-  //         className="max-w-full h-auto rounded-lg"
-  //       />
-  //     </section>
-  //   );
-  // }
+export default function TabDescription({ introData, isMobile }: Props) {
+  console.log(introData);
 
   return (
     <article>
@@ -52,7 +43,7 @@ export default function TabDescription({ introData }: Props) {
             {introData.descriptionImages.map((image, index) => (
               <img
                 key={index}
-                src={image.imageUrl}
+                src={isMobile ? image.imageUrl : image.pcImageUrl}
                 alt={`description-image-${index}`}
                 className="max-w-full h-auto rounded-lg"
               />

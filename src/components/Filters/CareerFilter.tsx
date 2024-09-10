@@ -1,10 +1,10 @@
 import { Dispatch } from 'react';
 
 const items = [
-  { label: { step: '', description: 'ALL' }, career_type: 'ALL' },
-  { label: { step: 'STEP 1', description: '커리어탐색' }, career_type: 'CAREER_EXPLORE' },
-  { label: { step: 'STEP 2', description: '서류 준비' }, career_type: 'DOCUMENT_PREPARE' },
-  { label: { step: 'STEP 3', description: '면접 준비' }, career_type: 'INTERVIEW_PREPARE' },
+  { description: '전체', career_type: 'ALL' },
+  { description: '커리어 탐색', career_type: 'CAREER_EXPLORE' },
+  { description: '서류 준비', career_type: 'DOCUMENT_PREPARE' },
+  { description: '면접 준비', career_type: 'INTERVIEW_PREPARE' },
 ];
 
 interface CareerFilterProps {
@@ -32,27 +32,21 @@ const CareerFilter: React.FC<CareerFilterProps> = ({ activeItem, setActiveItem }
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="relative w-full max-w-[350px] md:max-w-[612px] h-[50px] desktop:h-[68px] mt-[72px] desktop:mt-[90px] mb-[8px] gap-[8px] border-t border-t-[0.8px] border-transparent 
-      inline-flex justify-center text-sm bg-white desktop:px-[8px] desktop:py-[8px] px-[8px] py-[8px] ">
-        <section className="flex w-full h-full rounded-3xl overflow-hidden border justify-center items-center desktop:gap-[4px]">
+    <div className="flex items-center justify-center sm:justify-start w-full mx-[20px]">
+      <div className="relative w-full h-[56px] sm:h-[58px] mt-[59px] sm:mt-[69px] inline-flex justify-center bg-white">
+        <section className="flex w-full h-full bg-white">
           {items.map((item) => (
             <button
               key={item.career_type}
-              className={`box-border px-[8px] desktop:px-[10px] py-[8px] desktop:py-[8px] w-[82px] desktop:w-[142px] h-[38px] mx-[0.8px] items-center leading-none whitespace-pre-line ${
-                activeItem.includes(item.career_type)
-                  ? 'bg-Primary-100 text-white' // 활성화된 상태일 때
-                  : 'bg-white text-Neutral-grayscale-45' // 비활성화된 상태일 때
-              }`}
-              style={{
-                borderRadius: '320px',
-              }}
+              className={` w-[88px] h-[56px] sm:w-[120px] sm:h-[58px] px-[10px] py-[16px] items-center  ${activeItem.includes(item.career_type)
+                ? 'text-Neutral-grayscale-0 border-b-4 border-Primary-100' // 활성화된 상태일 때
+                : 'text-Neutral-grayscale-60' // 비활성화된 상태일 때
+                }`}
               onClick={() => handleClick(item.career_type)}
             >
-              <div className="flex flex-col items-center">
-                <span className="text-[9.6px]">{item.label.step}</span>
-                {item.label.description && (
-                  <span className="text-xs font-semibold">{item.label.description}</span>
+              <div className="flex flex-col items-center whitespace-nowrap leading-none">
+                {item.description && (
+                  <span className="text-[16px] sm:text-[18px] font-Pretendard font-semibold">{item.description}</span>
                 )}
               </div>
             </button>

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-interface PageNationProps {
+export interface PageNationProps {
   currentPage: number; // 사용자가 선택한 페이지
   // 사용자가 페이지 번호를 클릭했을 때 호출되는 함수, 선택된 페이지 번호를 인자로 받음, 해당 페이지로 데이터를 변경
   totalPages: number;
@@ -13,6 +13,13 @@ const PageNation: React.FC<PageNationProps> = ({ totalPages, currentPage, getCur
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
+
+  // currentPage가 0이면 기본적으로 1페이지로 설정
+  useEffect(() => {
+    if (currentPage === 0 && totalPages > 0) {
+      getCurrentPage(1);
+    }
+  }, [currentPage, totalPages, getCurrentPage]);
 
   // 이전 페이지로 이동
   const handlePrevious = () => {
@@ -75,13 +82,24 @@ const PageNation: React.FC<PageNationProps> = ({ totalPages, currentPage, getCur
           </button>
         </li>
 
+        {totalPages === 1 && (
+          <li>
+            <button
+              className="px-4 py-2 bg-Primary-100 text-white rounded-full"
+            >
+              1
+            </button>
+          </li>
+        )}
+
         {/* 페이지 번호 버튼 */}
-        {pageRange.map((number) => (
+        {totalPages > 1 && pageRange.map((number) => (
           <li key={number}>
             <button
               onClick={() => getCurrentPage(number)}
-              className={`px-4 py-2 ${currentPage === number ? 'bg-Primary-100 text-white rounded-full' : 'text-Black_Opacity-100'}`}
-            >
+              className={`px-4 py-2 ${currentPage === number
+                ? 'bg-Primary-100 text-white rounded-full'
+                : 'text-Black_Opacity-100'}`}>
               {number}
             </button>
           </li>

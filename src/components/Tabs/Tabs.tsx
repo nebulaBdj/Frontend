@@ -23,6 +23,7 @@ interface Props {
   curriculums: Curriculum[];
   latestReviews: Review[];
   faq: FAQ[];
+  isMobile: boolean;
 }
 
 export default function Tabs({
@@ -32,6 +33,7 @@ export default function Tabs({
   latestReviews,
   hookingArr,
   faq,
+  isMobile,
 }: Props) {
   const [activeTab, setActiveTab] = useState('programIntro');
   const [isSticky, setIsSticky] = useState(false);
@@ -150,10 +152,9 @@ export default function Tabs({
         </nav>
       </div>
 
-      {/* 탭 메뉴와 연결된 섹션들 */}
       {hookingArr &&
         hookingArr.map((hookinData, i) => {
-          return <TabHookingImages key={i} hookingData={hookinData} />;
+          return <TabHookingImages key={i} hookingData={hookinData} isMobile={isMobile} />;
         })}
 
       <section ref={programIntroRef} id="programIntro" className="bg-Primary-10 w-full py-20">
@@ -161,7 +162,7 @@ export default function Tabs({
           프로그램 소개
         </h3>
         {programIntro.map((introData, i) => {
-          return <TabDescription key={i} introData={introData} />;
+          return <TabDescription key={i} introData={introData} isMobile={isMobile} />;
         })}
       </section>
 

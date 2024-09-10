@@ -2,6 +2,7 @@
 export interface HookingImage {
   imageUrl: string;
   order: number;
+  pcImageUrl: string;
 }
 
 // Hooking 타입 정의 -> 프리 타이틀, 태그 타이틀 추가
@@ -18,6 +19,7 @@ export interface Hooking {
 // 설명 이미지 타입 정의
 export interface DescriptionImage {
   imageUrl: string;
+  pcImageUrl: string;
   order: number;
 }
 

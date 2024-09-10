@@ -6,14 +6,23 @@ import { RecruitState } from '../../components/Filters/RecruitTags';
 import PageNation from '../../components/PageNation/PageNation';
 import { Program } from '../../types/ProgramListType';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ListPage: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const initialPage = parseInt(queryParams.get('page') || '1', 10);
+  const initialCareerFilter = queryParams.get('career')?.split(',') || ['ALL'];
+  const initialTypeFilter = queryParams.get('type')?.split(',') || ['CHALLENGE', 'LIVECLASS'];
+
   const [programs, setPrograms] = useState<Program[]>([]);
   const [currentPrograms, setCurrentPrograms] = useState<Program[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지 상태
-  const [careerFilter, setCareearFilter] = useState<string[]>(['ALL']);
-  const [typeFilter, setTypeFilter] = useState<string[]>(['CHALLENGE', 'LIVECLASS']);
-  const [totalPages, setTotalPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+  const [careerFilter, setCareearFilter] = useState<string[]>(initialCareerFilter);
+  const [typeFilter, setTypeFilter] = useState<string[]>(initialTypeFilter);
+  const [totalPages, setTotalPages] = useState<number>(0)
 
   useEffect(() => {
     const fetchPrograms = async () => {
@@ -83,17 +92,26 @@ const ListPage: React.FC = () => {
     filterAndSlicePrograms();
   }, [programs, careerFilter, typeFilter, currentPage]);
 
+  // 페이지와 필터를 URL 쿼리 파라미터에 저장
+  useEffect(() => {
+    const careerQuery = careerFilter.join(',');
+    const typeQuery = typeFilter.join(',');
+    navigate(`?page=${currentPage}&career=${careerQuery}&type=${typeQuery}`);
+  }, [currentPage, careerFilter, typeFilter, navigate]);
+
   // 페이지 변경 함수 (PageNation에서 사용자가 페이지 번호 누르면 호출됨)
   const getCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <CareerFilter activeItem={careerFilter} setActiveItem={setCareearFilter} />
-      <TypeFilter activeItems={typeFilter} setActiveItems={setTypeFilter} />
+    <div className="w-full flex flex-col items-center">
+      <div className="w-full max-w-screen-lg">
+        <CareerFilter activeItem={careerFilter} setActiveItem={setCareearFilter} />
+        <TypeFilter activeItems={typeFilter} setActiveItems={setTypeFilter} />
+      </div>
 
-      <div className="flex flex-wrap justify-center items-center">
+      <div className="w-full flex flex-wrap justify-center">
         {currentPrograms.map((program) => (
           <ProgramBox key={program.programId} program={program} />
         ))}
