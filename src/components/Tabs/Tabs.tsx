@@ -114,25 +114,25 @@ export default function Tabs({
       >
         <nav className="flex justify-around font-pretendard">
           <button
-            className={`h-[74px] relative font-semibold text-lg ${activeTab === 'programIntro' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
+            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'programIntro' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
             onClick={() => scrollToSection(programIntroRef, 'programIntro')}
           >
             프로그램 소개
           </button>
           <button
-            className={`h-[74px] relative font-semibold text-lg ${activeTab === 'lecturerIntro' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
+            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'lecturerIntro' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
             onClick={() => scrollToSection(lecturerIntroRef, 'lecturerIntro')}
           >
             연사 소개
           </button>
           <button
-            className={`h-[74px] relative font-semibold text-lg ${activeTab === 'curriculum' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
+            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'curriculum' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
             onClick={() => scrollToSection(curriculumRef, 'curriculum')}
           >
             커리큘럼
           </button>
           <button
-            className={`h-[74px] relative font-semibold text-lg ${activeTab === 'reviews' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
+            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'reviews' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
             onClick={() => scrollToSection(reviewsRef, 'reviews')}
           >
             후기
@@ -144,7 +144,7 @@ export default function Tabs({
             추천 강좌
           </button> */}
           <button
-            className={`h-[74px] relative font-semibold text-lg ${activeTab === 'faq' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
+            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'faq' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
             onClick={() => scrollToSection(faqRef, 'faq')}
           >
             FAQ

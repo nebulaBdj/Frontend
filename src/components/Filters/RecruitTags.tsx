@@ -36,10 +36,18 @@ const getStatusText = (status: RecruitState, deadline: number) => {
 };
 
 const RecruitTags: React.FC<RecruitTagProps> = ({ status, program }) => {
-  const tagStyles = getTagStyles(status);
-  const statusText = getStatusText(status, program.deadline);
+  // const tagStyles = getTagStyles(status);
+  // const statusText = getStatusText(status, program.deadline);
 
-  const isRecruiting = status === RecruitState.RECRUITING;
+  // const isRecruiting = status === RecruitState.RECRUITING;
+  // deadline이 음수일 경우 상태를 강제로 ENDED로 설정
+  const finalStatus =
+    program.deadline < 0 ? RecruitState.ENDED : status;
+
+  const tagStyles = getTagStyles(finalStatus);
+  const statusText = getStatusText(finalStatus, program.deadline);
+
+  const isRecruiting = finalStatus === RecruitState.RECRUITING;
   const width = isRecruiting ? 'w-[48px]' : 'w-[41px]';
 
   return (

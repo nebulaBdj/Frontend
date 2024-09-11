@@ -32,21 +32,24 @@ const CareerFilter: React.FC<CareerFilterProps> = ({ activeItem, setActiveItem }
   };
 
   return (
-    <div className="flex items-center justify-center sm:justify-start w-full mx-[20px]">
-      <div className="relative w-full h-[56px] sm:h-[58px] mt-[59px] sm:mt-[69px] inline-flex justify-center bg-white">
-        <section className="flex w-full h-full bg-white">
+    <div className="flex items-center justify-center sm:justify-start w-full bg-Neutral-grayscale-95">
+      <div className="relative mx-auto w-full lg:w-[1160px] h-[56px] sm:h-[58px] mt-[59px] sm:mt-[69px] inline-flex justify-center">
+        <section className="flex w-full h-full">
           {items.map((item) => (
             <button
               key={item.career_type}
-              className={` w-[88px] h-[56px] sm:w-[120px] sm:h-[58px] px-[10px] py-[16px] items-center  ${activeItem.includes(item.career_type)
-                ? 'text-Neutral-grayscale-0 border-b-4 border-Primary-100' // 활성화된 상태일 때
-                : 'text-Neutral-grayscale-60' // 비활성화된 상태일 때
-                }`}
+              className={` w-[88px] h-[56px] sm:w-[120px] sm:h-[58px] px-[10px] py-[16px] items-center  ${
+                activeItem.includes(item.career_type)
+                  ? 'text-Neutral-grayscale-0 border-b-4 border-Primary-80' // 활성화된 상태일 때
+                  : 'text-Neutral-grayscale-60' // 비활성화된 상태일 때
+              }`}
               onClick={() => handleClick(item.career_type)}
             >
               <div className="flex flex-col items-center whitespace-nowrap leading-none">
                 {item.description && (
-                  <span className="text-[16px] sm:text-[18px] font-Pretendard font-semibold">{item.description}</span>
+                  <span className="text-[16px] sm:text-[18px] font-Pretendard font-semibold">
+                    {item.description}
+                  </span>
                 )}
               </div>
             </button>

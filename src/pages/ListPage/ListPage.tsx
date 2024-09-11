@@ -22,18 +22,21 @@ const ListPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [careerFilter, setCareearFilter] = useState<string[]>(initialCareerFilter);
   const [typeFilter, setTypeFilter] = useState<string[]>(initialTypeFilter);
-  const [totalPages, setTotalPages] = useState<number>(0)
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
         const careerTag = careerFilter.includes('ALL') ? 'ALL' : careerFilter.join(',');
         const typeTags = typeFilter.map((type) => `programTypes=${type}`).join('&');
+        if (typeTags.length === 0) {
+          setTotalPages(0);
+        }
         const res = await axios.get(
           `https://letmec.p-e.kr/program/list?careerTag=${careerTag}&${typeTags}&page=0`,
         );
         setPrograms(res.data.result.programDtos);
-        setTotalPages(res.data.result.totalPageCount);
+        typeTags.length !== 0 && setTotalPages(res.data.result.totalPageCount);
       } catch (error) {
         console.log('에러 발생', error);
         setPrograms([]);
@@ -106,15 +109,17 @@ const ListPage: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="w-full max-w-screen-lg">
+      <div className="w-full">
         <CareerFilter activeItem={careerFilter} setActiveItem={setCareearFilter} />
         <TypeFilter activeItems={typeFilter} setActiveItems={setTypeFilter} />
       </div>
 
-      <div className="w-full flex flex-wrap justify-center">
-        {currentPrograms.map((program) => (
-          <ProgramBox key={program.programId} program={program} />
-        ))}
+      <div className="w-full lg:w-[1200px]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 w-[370px] lg:w-full mx-auto">
+          {currentPrograms.map((program) => (
+            <ProgramBox key={program.programId} program={program} />
+          ))}
+        </div>
       </div>
 
       {/* PageNation 컴포넌트에 필요한 props 전달 */}
