@@ -2,60 +2,42 @@ import React, { useEffect } from 'react';
 
 export interface PageNationProps {
   currentPage: number; // 사용자가 선택한 페이지
-  // 사용자가 페이지 번호를 클릭했을 때 호출되는 함수, 선택된 페이지 번호를 인자로 받음, 해당 페이지로 데이터를 변경
-  totalPages: number;
-  getCurrentPage: (pageNumber: number) => void;
+  totalPages: number; // 사용자가 페이지 번호를 클릭했을 때 호출되는 함수
+  handlePageChange: (pageNumber: number) => void;
 }
 
-const PageNation: React.FC<PageNationProps> = ({ totalPages, currentPage, getCurrentPage }) => {
-  const pageNumbers: number[] = []; // 배열을 생성한 후, 반복문을 사용하여 배열의 각 요소(페이지 번호)를 렌더링
+const PageNation: React.FC<PageNationProps> = ({ totalPages, currentPage, handlePageChange }) => {
 
+  const pageNumbers: number[] = []; // 배열을 생성한 후, 반복문을 사용하여 배열의 각 요소(페이지 번호)를 렌더링
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
 
-  // currentPage가 0이면 기본적으로 1페이지로 설정
+  // 기본 첫페이지 설정
   useEffect(() => {
     if (currentPage === 0 && totalPages > 0) {
-      getCurrentPage(1);
+      handlePageChange(1);
     }
-  }, [currentPage, totalPages, getCurrentPage]);
+  }, [currentPage, totalPages, handlePageChange]);
 
-  // 이전 페이지로 이동
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      getCurrentPage(currentPage - 1);
-    }
-  };
-
-  // 다음 페이지로 이동
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      getCurrentPage(currentPage + 1);
+  // 페이지 변경 핸들러 통합, newPage: 사용자가 이동하려는 새로운 페이지 번호
+  const changePage = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      handlePageChange(newPage);
     }
   };
 
-  // 맨 첫 페이지로 이동
-  const handleFirst = () => {
-    getCurrentPage(1);
-  };
+  const handlePrevious = () => changePage(currentPage - 1);
+  const handleNext = () => changePage(currentPage + 1);
+  const handleFirst = () => changePage(1);
+  const handleLast = () => changePage(totalPages);
 
-  // 맨 마지막 페이지로 이동
-  const handleLast = () => {
-    getCurrentPage(totalPages);
-  };
-
-  let pageRange;
-  if (totalPages <= 5) {
-    // 페이지가 5개 이하일 경우, 전체 페이지 번호를 표시
-    pageRange = pageNumbers;
-  } else {
-    // 페이지가 5개 이상일 경우, 범위 계산
-    pageRange = pageNumbers.slice(
+  const pageRange = totalPages <= 5
+    ? pageNumbers
+    : pageNumbers.slice(
       Math.max(0, currentPage - 2),
-      Math.min(totalPages, currentPage + 1),
+      Math.min(totalPages, currentPage + 1)
     );
-  }
 
   return (
     <nav className="flex justify-center mt-8 mb-[100px]">
@@ -65,38 +47,28 @@ const PageNation: React.FC<PageNationProps> = ({ totalPages, currentPage, getCur
           <button
             onClick={handleFirst}
             className={`px-4 py-2 ${currentPage === 1 ? 'text-Neutral-grayscale-75' : 'text-Black_Opacity-100'}`}
-            disabled={currentPage === 1} // 첫 페이지에서는 비활성화
+            disabled={currentPage === 1}
           >
             {'<<'}
           </button>
         </li>
 
-        {/* 이전 페이지 버튼 */}
+        {/* 이전 페이지로 이동 */}
         <li>
           <button
             onClick={handlePrevious}
             className={`px-4 py-2 ${currentPage === 1 ? 'text-Neutral-grayscale-75' : 'text-Black_Opacity-100'}`}
-            disabled={currentPage === 1} // 첫 페이지에서는 비활성화
+            disabled={currentPage === 1}
           >
             {'<'}
           </button>
         </li>
 
-        {totalPages === 1 && (
-          <li>
-            <button
-              className="px-4 py-2 bg-Primary-100 text-white rounded-full"
-            >
-              1
-            </button>
-          </li>
-        )}
-
-        {/* 페이지 번호 버튼 */}
-        {totalPages > 1 && pageRange.map((number) => (
+        {/* 페이지 번호 */}
+        {pageRange.map((number) => (
           <li key={number}>
             <button
-              onClick={() => getCurrentPage(number)}
+              onClick={() => changePage(number)}
               className={`px-4 py-2 ${currentPage === number
                 ? 'bg-Primary-100 text-white rounded-full'
                 : 'text-Black_Opacity-100'}`}>
@@ -105,23 +77,23 @@ const PageNation: React.FC<PageNationProps> = ({ totalPages, currentPage, getCur
           </li>
         ))}
 
-        {/* 다음 페이지 버튼 */}
+        {/* 다음 페이지로 이동 */}
         <li>
           <button
             onClick={handleNext}
             className={`px-4 py-2 ${currentPage === totalPages ? 'text-Neutral-grayscale-75' : 'text-Black_Opacity-100'}`}
-            disabled={currentPage === totalPages} // 마지막 페이지에서는 비활성화
+            disabled={currentPage === totalPages}
           >
             {'>'}
           </button>
         </li>
 
-        {/* 맨 마지막 페이지로 이동 */}
+        {/* 마지막 페이지로 이동 */}
         <li>
           <button
             onClick={handleLast}
             className={`px-4 py-2 ${currentPage === totalPages ? 'text-Neutral-grayscale-75' : 'text-Black_Opacity-100'}`}
-            disabled={currentPage === totalPages} // 마지막 페이지에서는 비활성화
+            disabled={currentPage === totalPages}
           >
             {'>>'}
           </button>

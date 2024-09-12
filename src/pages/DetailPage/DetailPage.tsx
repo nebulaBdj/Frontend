@@ -5,10 +5,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { DETAILDATA } from '../../types/ProgramDetailType';
-// import { DUMMY_DATA } from '../../assets/dummy/DetailPageDummy';
 import PassedRate from '../../components/Average/PassedRate';
 import GradeAverage from '../../components/Average/GradeAverage';
-// import FixedSummitButton from '../../components/Buttons/FixedSummitButton';
+import FixedSummitButton from '../../components/Buttons/FixedSummitButton';
 
 export default function DetailPage() {
   const { programId } = useParams<{ programId: string }>();
@@ -64,8 +63,8 @@ export default function DetailPage() {
 
       {detailData && (
         <Tabs
-          hookingArr={detailData.hooking} // 기본값으로 빈 배열 사용
-          programIntro={detailData.description} // 기본값으로 DUMMY_DATA 사용
+          hookingArr={detailData.hooking}
+          programIntro={detailData.description}
           lecturerIntro={detailData.lecturer}
           curriculums={detailData.curriculum}
           latestReviews={detailData.latestReviews}
@@ -73,7 +72,10 @@ export default function DetailPage() {
           isMobile={isMobile}
         />
       )}
-      {/* <FixedSummitButton program={} /> */}
+
+      {detailData && (
+        <FixedSummitButton title={detailData.title} recruitEndDate={detailData.recruitEndDate} />
+      )}
     </main>
   );
 }

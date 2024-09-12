@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { RecommendedProgram } from '../../types/ProgramDetailType';
+import { RecommendedProgram } from '../../../types/ProgramDetailType';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { formatDate } from '../../utils/formatDate';
+import { formatDate } from '../../../utils/formatDate';
 
 export default function TabSuggest() {
   const [activeTab, setActiveTab] = useState('CAREER_EXPLORE'); // 현재 선택된 탭 상태
@@ -27,8 +27,6 @@ export default function TabSuggest() {
 
   return (
     <section className="mx-auto px-4 lg:w-[905px] font-pretendard">
-      <p className="text-center font-bold text-2xl mt-1 mb-[72px]">이런 강좌는 어떠세요?</p>
-
       <div className="flex justify-around space-x-8 mb-[72px] w-[350px] mx-auto">
         {['CAREER_EXPLORE', 'DOCUMENT_PREPARE', 'INTERVIEW_PREPARE'].map((tag, index) => (
           <div

@@ -1,4 +1,4 @@
-import { Curriculum } from '../../types/ProgramDetailType';
+import { Curriculum } from '../../../types/ProgramDetailType';
 
 interface Props {
   curriculum: Curriculum;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Review } from '../../types/ProgramDetailType';
-import { EmptyStar, Star } from '../../assets/svg';
-import JobStatusIndicator from '../Review/JobStatusIndicator';
+import { Review } from '../../../types/ProgramDetailType';
+import { EmptyStar, Star } from '../../../assets/svg';
+import JobStatusIndicator from '../../Review/JobStatusIndicator';
 
 interface Props {
   reviews: Review[];
@@ -33,14 +33,7 @@ export default function TabLatestReview({ reviews }: Props) {
 
   return (
     <div className="w-full mx-auto">
-      {/* 제목 */}
-      <p className="font-pretendard text-center font-bold text-2xl mt-2 mb-[50px]">
-        실제 수강생들의 솔직한 후기
-      </p>
-
-      {/* 리뷰 항목들 */}
       <div className="overflow-hidden w-full">
-        {/* 더보기 버튼 */}
         <div className="flex justify-end mb-2">
           <a
             href={`/program/${programId}/review`}
@@ -50,7 +43,6 @@ export default function TabLatestReview({ reviews }: Props) {
           </a>
         </div>
 
-        {/* 모바일: 가로 스크롤, 데스크탑: 그리드 */}
         <div
           className={`flex ${isMobile ? 'overflow-x-auto snap-x ml-[50px]' : 'flex-row flex-wrap justify-center'} gap-[16px] scrollbar-hide`}
           style={isMobile ? { scrollSnapType: 'x mandatory', scrollPadding: '0 50px' } : {}}
@@ -60,7 +52,6 @@ export default function TabLatestReview({ reviews }: Props) {
               key={index}
               className={`bg-white rounded-lg p-6 ${isMobile ? 'snap-start w-[290px] flex-shrink-0' : 'w-[360px] sm:w-[30%] flex-shrink-0'}`}
             >
-              {/* 별점 */}
               <div className="flex items-center gap-[4px] mb-[16px]">
                 {/* 별점 개수만큼 Star 렌더링 */}
                 {[...Array(review.grade)].map((_, i) => (

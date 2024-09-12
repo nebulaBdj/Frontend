@@ -1,4 +1,4 @@
-import { Description } from '../../types/ProgramDetailType';
+import { Description } from '../../../types/ProgramDetailType';
 
 interface Props {
   introData: Description;
@@ -11,14 +11,14 @@ export default function TabDescription({ introData, isMobile }: Props) {
   return (
     <article>
       <section className="max-w-2xl mx-auto mb-8 font-pretendard whitespace-pre-line">
-        {/* Title Section */}
+        {/* 제목 */}
         {introData.title && (
           <h2 className="text-2xl font-bold text-Neutral-grayscale-0 text-center mt-2 mb-14">
             {introData.title}
           </h2>
         )}
 
-        {/* Hashtags Section */}
+        {/* 해시태그 */}
         {introData.hashtags && (
           <div className="flex flex-wrap gap-2 mb-14 justify-center">
             {introData.hashtags.map((tag, index) => (
@@ -32,12 +32,12 @@ export default function TabDescription({ introData, isMobile }: Props) {
           </div>
         )}
 
-        {/* Content Section */}
+        {/* 내용 */}
         {introData.content && (
           <p className="text-Neutral-grayscale-10 text-base mb-14">{introData.content}</p>
         )}
 
-        {/* Description Images Section */}
+        {/* 이미지 */}
         {introData.descriptionImages && (
           <div className="flex justify-center">
             {introData.descriptionImages.map((image, index) => (

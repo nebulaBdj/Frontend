@@ -2,24 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ReviewBox from '../../components/Review/ReviewBox';
 import { BackBtn } from '../../assets/svg';
 import SortReview from '../../components/Review/SortReview';
-// import { dummyData_review } from '../../assets/dummy/ReviewPageDummy';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-export interface Review {
-  id: number;
-  programName: string;
-  grade: number;
-  date: string;
-  userName: string;
-  dreamWorkField: string;
-  year: number;
-  major: string;
-  status: string;
-  title: string;
-  content: string;
-}
+import { Review } from '../../types/ProgramDetailType';
 
 const ReviewPage: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -30,22 +16,27 @@ const ReviewPage: React.FC = () => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const res = await axios.get(`https://letmec.p-e.kr/program/${programId}/review`);
-      const fetchedReviews = res.data.result.reviews;
-      setReviews(fetchedReviews);
-      setSortedReviews(fetchedReviews);
+      try {
+        const response = await axios.get(`https://letmec.p-e.kr/program/${programId}/review`);
+        const fetchedReviews = response.data.result.reviews;
+        setReviews(fetchedReviews);
+        setSortedReviews(fetchedReviews);
+      } catch (error) {
+        console.error('Failed to fetch reviews', error);
+        setReviews([]);
+        setSortedReviews([]);
+      }
     };
 
     fetchReviews();
 
-    const handleRize = () => {
+    const handleResize = () => {
       setIsMoblie(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleRize);
-    handleRize();
-
-    return () => window.removeEventListener('resize', handleRize);
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
   }, [programId]);
 
   const handleSortChange = (sortedData: Review[]) => {
@@ -55,7 +46,6 @@ const ReviewPage: React.FC = () => {
   };
 
   const handleBackClick = () => {
-    // window.history.back();
     navigate(`/program/${programId}`);
   };
 

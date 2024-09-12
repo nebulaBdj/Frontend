@@ -22,10 +22,6 @@ export default function TabFAQ({ faqList }: Props) {
 
   return (
     <section className="mx-auto font-pretendard">
-      <h2 className="text-center font-bold text-2xl text-Neutral-grayscale-0 mt-2 mb-[72px]">
-        무엇이든 물어보세요
-      </h2>
-
       <div>
         {faqList.map((faq, index) => (
           <div key={faq.order} className="w-[350px] lg:w-[930px] mb-4 mx-auto">

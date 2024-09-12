@@ -7,14 +7,14 @@ import {
   Lecturer,
   Review,
 } from '../../types/ProgramDetailType';
-// import TabHookingImages from './TabHookingImages';
-import TabDescription from './TabDescription';
-import TabLecturerIntro from './TabLecturerIntro';
-import TabCurriculum from './TabCurriculum';
-import TabLatestReview from './TabLatestReview';
-import TabSuggest from './TabSuggest';
-import TabFAQ from './TabFAQ';
-import TabHookingImages from './TabHookingImages';
+import TabMenuBTN from './TabMenuBTN';
+import TabHookingImages from './intro_template/TabHookingImages';
+import TabDescription from './intro_template/TabDescription';
+import TabLecturerIntro from './lecturer_template/TabLecturerIntro';
+import TabCurriculum from './tab_section/TabCurriculum';
+import TabLatestReview from './tab_section/TabLatestReview';
+import TabSuggest from './tab_section/TabSuggest';
+import TabFAQ from './tab_section/TabFAQ';
 
 interface Props {
   hookingArr?: Hooking[];
@@ -42,13 +42,12 @@ export default function Tabs({
   const lecturerIntroRef = useRef<HTMLElement | null>(null);
   const curriculumRef = useRef<HTMLElement | null>(null);
   const reviewsRef = useRef<HTMLElement | null>(null);
-  // const recommendRef = useRef<HTMLElement | null>(null);
   const faqRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleStickyTab = () => {
       const tabPosition = tabRef.current?.getBoundingClientRect();
-      const navigationHeight = 60; // 네비게이션 바 높이 조정 (px 단위)
+      const navigationHeight = 60; // 네비게이션 바 높이 지정 후 바로 아래로 고정
 
       if (tabPosition && tabPosition.top <= navigationHeight) {
         setIsSticky(true);
@@ -86,7 +85,6 @@ export default function Tabs({
     if (lecturerIntroRef.current) observer.observe(lecturerIntroRef.current);
     if (curriculumRef.current) observer.observe(curriculumRef.current);
     if (reviewsRef.current) observer.observe(reviewsRef.current);
-    // if (recommendRef.current) observer.observe(recommendRef.current);
     if (faqRef.current) observer.observe(faqRef.current);
 
     return () => {
@@ -107,51 +105,54 @@ export default function Tabs({
 
   return (
     <section className="lg:w-[1200px] mx-auto">
-      {/* 탭 메뉴 */}
       <div
         ref={tabRef}
         className={`h-[74px] z-10 bg-white duration-300 ${isSticky ? 'sticky top-[60px]' : ''}`}
       >
         <nav className="flex justify-around font-pretendard">
-          <button
-            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'programIntro' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
-            onClick={() => scrollToSection(programIntroRef, 'programIntro')}
-          >
-            프로그램 소개
-          </button>
-          <button
-            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'lecturerIntro' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
-            onClick={() => scrollToSection(lecturerIntroRef, 'lecturerIntro')}
-          >
-            연사 소개
-          </button>
-          <button
-            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'curriculum' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
-            onClick={() => scrollToSection(curriculumRef, 'curriculum')}
-          >
-            커리큘럼
-          </button>
-          <button
-            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'reviews' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
-            onClick={() => scrollToSection(reviewsRef, 'reviews')}
-          >
-            후기
-          </button>
-          {/* <button
-            className={`relative font-semibold ${activeTab === 'recommend' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
-            onClick={() => scrollToSection(recommendRef, 'recommend')}
-          >
-            추천 강좌
-          </button> */}
-          <button
-            className={`h-[74px] relative font-semibold text-lg px-[9px] lg:px-[85px] ${activeTab === 'faq' ? 'font-bold border-b-4 border-Primary-80' : 'text-gray-400'}`}
-            onClick={() => scrollToSection(faqRef, 'faq')}
-          >
-            FAQ
-          </button>
+          <TabMenuBTN
+            tabBtnTitle="프로그램 소개"
+            tabBtnSection="programIntro"
+            sectionRef={programIntroRef}
+            activeTab={activeTab}
+            scrollToSection={scrollToSection}
+          />
+
+          <TabMenuBTN
+            tabBtnTitle="연사 소개"
+            tabBtnSection="lecturerIntro"
+            sectionRef={lecturerIntroRef}
+            activeTab={activeTab}
+            scrollToSection={scrollToSection}
+          />
+
+          <TabMenuBTN
+            tabBtnTitle="커리큘럼"
+            tabBtnSection="curriculum"
+            sectionRef={curriculumRef}
+            activeTab={activeTab}
+            scrollToSection={scrollToSection}
+          />
+
+          <TabMenuBTN
+            tabBtnTitle="후기"
+            tabBtnSection="reviews"
+            sectionRef={reviewsRef}
+            activeTab={activeTab}
+            scrollToSection={scrollToSection}
+          />
+
+          <TabMenuBTN
+            tabBtnTitle="FAQ"
+            tabBtnSection="faq"
+            sectionRef={faqRef}
+            activeTab={activeTab}
+            scrollToSection={scrollToSection}
+          />
         </nav>
       </div>
 
+      {/* 프로그램 소개 */}
       {hookingArr &&
         hookingArr.map((hookinData, i) => {
           return <TabHookingImages key={i} hookingData={hookinData} isMobile={isMobile} />;
@@ -166,6 +167,7 @@ export default function Tabs({
         })}
       </section>
 
+      {/* 연사 소개 */}
       <section
         ref={lecturerIntroRef}
         id="lecturerIntro"
@@ -177,6 +179,7 @@ export default function Tabs({
         <TabLecturerIntro lecturerData={lecturerIntro} />
       </section>
 
+      {/* 커리큘럼 */}
       <section ref={curriculumRef} id="curriculum" className="bg-Neutral-grayscale-90 w-full py-20">
         <h3 className="font-pretendard font-medium text-lg text-Primary-100 text-center">
           커리큘럼 소개
@@ -189,22 +192,34 @@ export default function Tabs({
         })}
       </section>
 
+      {/* 강의 후기 */}
       <section ref={reviewsRef} id="reviews" className="bg-Neutral-grayscale-90 w-full py-20">
         <h3 className="font-pretendard font-medium text-lg text-Primary-100 text-center">
           강의 후기
         </h3>
+        <p className="font-pretendard text-center font-bold text-2xl mt-2 mb-[50px]">
+          실제 수강생들의 솔직한 후기
+        </p>
         <TabLatestReview reviews={latestReviews} />
       </section>
 
-      <section className="bg-Neutral-grayscale-100 w-full py-20">
-        <h3 className="font-pretendard font-medium text-lg text-Primary-100 text-center">
-          추천 강좌
-        </h3>
+      {/* 추천 강좌 */}
+      <section className="bg-Neutral-grayscale-100 w-full py-20 font-pretendard">
+        <h3 className="font-medium text-lg text-Primary-100 text-center">추천 강좌</h3>
+        <p className="text-center font-bold text-2xl mt-1 mb-[72px]">이런 강좌는 어떠세요?</p>
         <TabSuggest />
       </section>
 
-      <section ref={faqRef} id="faq" className="bg-Neutral-grayscale-100 w-full py-20">
+      {/* FAQ */}
+      <section
+        ref={faqRef}
+        id="faq"
+        className="bg-Neutral-grayscale-100 w-full py-20 font-pretendard"
+      >
         <h3 className="font-pretendard font-medium text-lg text-Primary-100 text-center">FAQ</h3>
+        <h2 className="text-center font-bold text-2xl text-Neutral-grayscale-0 mt-2 mb-[72px]">
+          무엇이든 물어보세요
+        </h2>
         <TabFAQ faqList={faq} />
       </section>
     </section>

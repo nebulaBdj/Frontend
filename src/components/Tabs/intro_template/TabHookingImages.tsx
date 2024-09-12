@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Hooking } from '../../types/ProgramDetailType';
+import { Hooking } from '../../../types/ProgramDetailType';
 
 interface Props {
   hookingData: Hooking;

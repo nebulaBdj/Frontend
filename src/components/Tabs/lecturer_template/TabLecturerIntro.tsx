@@ -1,4 +1,4 @@
-import { Lecturer } from '../../types/ProgramDetailType';
+import { Lecturer } from '../../../types/ProgramDetailType';
 
 interface Props {
   lecturerData: Lecturer;
