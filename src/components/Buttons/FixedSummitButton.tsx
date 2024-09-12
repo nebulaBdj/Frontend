@@ -40,7 +40,7 @@ const FixedSummitButton: React.FC<SummitBtnProps> = ({ title, recruitEndDate }) 
     const statusConfig = {
       [RecruitState.ENDED]: {
         label: '신청마감',
-        style: 'w-[64px] h-[30px] bg-Neutral-grayscale-85 text-Neutral-grayscale-35 text-sm',
+        style: 'w-[64px] h-[30px] bg-Neutral-grayscale-85 text-Neutral-grayscale-35 text-sm pt-1',
       },
       [RecruitState.RECRUITING]: {
         label: `D-${deadline}`,

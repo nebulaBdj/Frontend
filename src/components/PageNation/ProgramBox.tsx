@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import RecruitTags, { RecruitState } from '../Filters/RecruitTags';
 import CareerTags from '../Filters/CareerTags';
@@ -9,16 +9,30 @@ export interface ProgramBoxProps {
   program: Program;
 }
 
-const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
+export default function ProgramBox({ program }: ProgramBoxProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // 모바일 크기 기준
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // 초기 크기 설정
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const toggleHover = (hovered: boolean) => setIsHovered(hovered);
 
   const handleNotificationClick = () => alert('출시 알림 신청 완료!');
 
   const renderNotifyButton = () => (
-    <div className={`absolute inset-x-0 bottom-10 sm:bottom-16 flex justify-center z-20 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+    <div
+      className={`absolute inset-x-0 bottom-10 sm:bottom-16 flex justify-center z-20 transition-opacity duration-300 ${isHovered || isMobile ? 'opacity-100' : 'opacity-0'}`}
+    >
       <NotifyButton onClick={handleNotificationClick} />
     </div>
   );
@@ -26,7 +40,8 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
   const formatDate = (date: string) => {
     const newDate = new Date(date);
     return `${newDate.getFullYear().toString().slice(2)}.${(newDate.getMonth() + 1)
-      .toString().padStart(2, '0')}.${newDate.getDate().toString().padStart(2, '0')}`;
+      .toString()
+      .padStart(2, '0')}.${newDate.getDate().toString().padStart(2, '0')}`;
   };
 
   const renderRecruitStatus = () => {
@@ -45,7 +60,7 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
   return (
     <div
       key={program.programId}
-      className="relative flex flex-col justify-center rounded-lg border border-gray-300 mb-[20px] mx-[10px] w-[165px] h-[276px] p-[8px] sm:w-[275px] sm:h-[355px] sm:p-[10px] font-pretendard "
+      className="relative flex flex-col justify-center rounded-lg border border-gray-300 mb-[20px] mx-[10px] w-[165px] h-[276px] p-[8px] sm:w-[275px] sm:h-[355px] sm:p-[10px] font-pretendard"
       onMouseEnter={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
       onClick={() => navigate(`/program/${program.programId}`)}
@@ -61,7 +76,9 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
       {/* 테그 섹션 */}
       <span className="inline-flex">
         {renderRecruitStatus()}
-        <CareerTags status={program.tag as "CAREER_EXPLORE" | "DOCUMENT_PREPARE" | "INTERVIEW_PREPARE"} />
+        <CareerTags
+          status={program.tag as 'CAREER_EXPLORE' | 'DOCUMENT_PREPARE' | 'INTERVIEW_PREPARE'}
+        />
       </span>
 
       {/* 타이틀 */}
@@ -84,6 +101,4 @@ const ProgramBox: React.FC<ProgramBoxProps> = ({ program }) => {
       </p>
     </div>
   );
-};
-
-export default ProgramBox;
+}
