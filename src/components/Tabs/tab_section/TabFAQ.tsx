@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FAQ } from '../../types/ProgramDetailType';
+import { FAQ } from '../../../types/ProgramDetailType';
 
 interface Props {
   faqList: FAQ[];
