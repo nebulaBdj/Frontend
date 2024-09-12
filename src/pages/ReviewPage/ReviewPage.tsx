@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Review } from '../../types/ProgramDetailType';
+import { ReviewsSchema } from '../../types/DetailSchema'
 
 const ReviewPage: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -19,15 +20,24 @@ const ReviewPage: React.FC = () => {
       try {
         const response = await axios.get(`https://letmec.p-e.kr/program/${programId}/review`);
         const fetchedReviews = response.data.result.reviews;
-        setReviews(fetchedReviews);
-        setSortedReviews(fetchedReviews);
+
+        // Zod로 데이터 검증
+        const parsedData = ReviewsSchema.safeParse(fetchedReviews);
+
+        if (!parsedData.success) {
+          console.error('검증 실패', parsedData.error);
+          setReviews([]);
+          setSortedReviews([]);
+          return;
+        }
+        setReviews(parsedData.data);
+        setSortedReviews(parsedData.data);
       } catch (error) {
-        console.error('Failed to fetch reviews', error);
+        console.error('리뷰 가져오기 실패', error);
         setReviews([]);
         setSortedReviews([]);
       }
     };
-
     fetchReviews();
 
     const handleResize = () => {

@@ -7,6 +7,7 @@ import PageNation from '../../components/PageNation/PageNation';
 import { Program } from '../../types/ProgramListType';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ProgramSchema } from '../../types/ProgramSchema';
 
 const ListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,13 +36,21 @@ const ListPage: React.FC = () => {
         const res = await axios.get(
           `https://letmec.p-e.kr/program/list?careerTag=${careerTag}&${typeTags}&page=0`,
         );
-        setPrograms(res.data.result.programDtos);
+        const parsedData = ProgramSchema.array().safeParse(res.data.result.programDtos);
+
+        if (!parsedData.success) {
+          console.error("검증 실패", parsedData.error);
+          return;
+        }
+
+        setPrograms(parsedData.data); // 검증에 성공한 데이터만 상태에 설정
         typeTags.length !== 0 && setTotalPages(res.data.result.totalPageCount);
       } catch (error) {
-        console.log('에러 발생', error);
+        console.error('에러 발생', error);
         setPrograms([]);
         setCurrentPrograms([]);
       }
+
     };
 
     fetchPrograms();
@@ -56,10 +65,18 @@ const ListPage: React.FC = () => {
           `https://letmec.p-e.kr/program/list?careerTag=${careerTag}&${typeTags}&page=${currentPage - 1}`,
         );
         console.log(res);
-        setPrograms(res.data.result.programDtos);
+
+        const parsedData = ProgramSchema.array().safeParse(res.data.result.programDtos);
+
+        if (!parsedData.success) {
+          console.error("검증 실패", parsedData.error);
+          return;
+        }
+
+        setPrograms(parsedData.data);
         setTotalPages(res.data.result.totalPageCount);
       } catch (error) {
-        console.log('에러 발생', error);
+        console.error('에러 발생', error);
         setPrograms([]);
         setCurrentPrograms([]);
       }

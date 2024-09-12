@@ -46,7 +46,7 @@ const SortReview: React.FC<SortReviewProps> = ({ reviews, onSortChange }) => {
       <select
         onChange={handleSortChange}
         value={sortType}
-        className="focus:outline-none bg-Neutral-grayscale-90 rounded-lg p-2 mt-[71px] text-[16px] w-[110px] px-[8px] py-[8px] mr-[15px] sm:mr-[40px] text-Neutral-grayscale-30"
+        className="focus:outline-none bg-Neutral-grayscale-90 rounded-lg p-2 mt-[71px] text-[16px] w-[150px] px-[8px] py-[8px] mr-[15px] sm:mr-[40px] text-Neutral-grayscale-30"
       >
         <option
           value={SORT_OPTIONS.LATEST}

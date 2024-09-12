@@ -3,6 +3,8 @@ import { RecommendedProgram } from '../../../types/ProgramDetailType';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../../../utils/formatDate';
+import { RecommendedProgramSchema } from '../../../types/DetailSchema';
+import { z } from 'zod';
 
 export default function TabSuggest() {
   const [activeTab, setActiveTab] = useState('CAREER_EXPLORE'); // 현재 선택된 탭 상태
@@ -17,13 +19,23 @@ export default function TabSuggest() {
         const res = await axios.get(
           `https://letmec.p-e.kr/program/${programId}/recommended/${activeTab}`,
         );
-        setFilteredPrograms(res.data.result.recommendedPrograms);
+        const fetchedPrograms = res.data.result.recommendedPrograms;
+
+        const parsedData = z.array(RecommendedProgramSchema).safeParse(fetchedPrograms);
+
+        if (!parsedData.success) {
+          console.error('검증 실패', parsedData.error);
+          setFilteredPrograms([]);
+          return;
+        }
+        setFilteredPrograms(parsedData.data);
       } catch (error) {
         console.log('에러 발생', error);
+        setFilteredPrograms([]);
       }
     };
     fetchRecommendedPrograms();
-  }, [activeTab]);
+  }, [activeTab, programId]); //
 
   return (
     <section className="mx-auto px-4 lg:w-[905px] font-pretendard">

@@ -65,7 +65,7 @@ const FixedSummitButton: React.FC<SummitBtnProps> = ({ title, recruitEndDate }) 
       },
       [RecruitState.ENDED]: {
         label: '재출시 알림 신청하기',
-        style: 'w-[200px] h-[30px] font-semibold text-Point-Normal',
+        style: 'w-[250px] h-[30px] font-semibold text-Point-Normal',
       },
     };
 

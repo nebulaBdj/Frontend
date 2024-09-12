@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import {
-  Lets,
-  LetsDesk,
-  Career,
-  Logined,
-  Hamburger as HamburgerIcon,
-  Xclose,
-} from '../../assets/svg';
+import { Lets, LetsDesk, Career, Logined, Hamburger as HamburgerIcon, Xclose, } from '../../assets/svg';
 
 const Logo: React.FC = () => {
   return (
