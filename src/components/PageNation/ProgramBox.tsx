@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import RecruitTags, { RecruitState } from '../Filters/RecruitTags';
 import CareerTags from '../Filters/CareerTags';
